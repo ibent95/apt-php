@@ -1,4 +1,4 @@
-<?php 
+<?php
     $proses 			= $_GET['proses'];
 	if ($proses == 'remove') {
 		$id 			= (isset($_GET['id'])) ? antiInjection($_GET['id']) : NULL;
@@ -37,7 +37,7 @@
     $messages   		= array();
     $sql				= "";
 	$redirect 			= '?content=data_telur';
-	
+
 	switch ($proses) {
 		case 'add':
 			try {
@@ -140,7 +140,11 @@
 			break;
 		case 'edit_discount':
 			try {
-				mysqli_query($koneksi, "UPDATE `data_telur` SET `diskon` = '$diskon', `tgl_awal_diskon` = '$tglAwal', `tgl_akhir_diskon` = '$tglAkhir' WHERE `id_telur` = '$id';") or die ($koneksi);
+				$diskon_type = (isset($_POST['diskon_type'])) ? $_POST['diskon_type'] : 'umum';
+				$diskon_count_increase = (isset($_POST['diskon_count_increase'])) ? $_POST['diskon_count_increase'] : 'umum';
+				$diskon_amount_increment = (isset($_POST['diskon_amount_increment'])) ? $_POST['diskon_amount_increment'] : 'umum';
+				$diskon_amount_increment_max = (isset($_POST['diskon_amount_increment_max'])) ? $_POST['diskon_amount_increment_max'] : 'umum';
+				mysqli_query($koneksi, "UPDATE `data_telur` SET `diskon` = '$diskon', `tgl_awal_diskon` = '$tglAwal', `tgl_akhir_diskon` = '$tglAkhir', `diskon_type` = '$diskon_type', `diskon_count_increase` = '$diskon_count_increase', `diskon_amount_increment` = '$diskon_amount_increment', `diskon_amount_increment_max` = '$diskon_amount_increment_max' WHERE `id_telur` = '$id';") or die ($koneksi);
 				array_push($messages, array("success", "Data berhasil diubah..!"));
 			} catch (Exception $e) {
 				array_push($messages, array("danger", "Data gagal diubah..!"));

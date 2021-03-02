@@ -284,7 +284,7 @@
 											<button
 												type='button'
 												class='
-													btn 
+													btn
 													btn-primary
 													btn-block
 												'
@@ -533,7 +533,7 @@
 			} else {
 				// foreach ($result as $data) {
 					$data = mysqli_fetch_array(
-						$result, 
+						$result,
 						MYSQLI_BOTH
 					);
 					$response .= "
@@ -580,7 +580,7 @@
 			} else {
 				// foreach ($result as $data) {
 					$data = mysqli_fetch_array(
-						$result, 
+						$result,
 						MYSQLI_BOTH
 					);
 					$response .= "
@@ -626,7 +626,7 @@
 			} else {
 				// foreach ($result as $data) {
 					$data = mysqli_fetch_array(
-						$result, 
+						$result,
 						MYSQLI_BOTH
 					);
 					$response .= "
@@ -672,7 +672,7 @@
 			} else {
 				// foreach ($result as $data) {
 					$data = mysqli_fetch_array(
-						$result, 
+						$result,
 						MYSQLI_BOTH
 					);
 					$response .= "
@@ -708,7 +708,7 @@
 		case 'get_diskon_barang':
 			$id = (isset($_POST['id']) AND !empty($_POST['id'])) ? antiInjection($_POST['id']) : NULL ;
 			$filter = (isset($_POST['filter']) AND !empty($_POST['filter'])) ? $_POST['filter'] : NULL ;
-			$result = mysqli_query($koneksi, "SELECT `diskon`, `harga_jual`, `tgl_awal_diskon`, `tgl_akhir_diskon` FROM `data_telur` WHERE `id_telur` = '$id'");
+			$result = mysqli_query($koneksi, "SELECT `diskon`, `diskon_type`, `diskon_count_increase`, `diskon_amount_increment`, `diskon_amount_increment_max`, `harga_jual`, `tgl_awal_diskon`, `tgl_akhir_diskon` FROM `data_telur` WHERE `id_telur` = '$id'");
 			if (mysqli_num_rows($result) < 1) {
 				// $response .= "Tidak ada data..!";
 				$response .= "";
@@ -722,6 +722,8 @@
 					$response = "$data[tgl_awal_diskon]";
 				} elseif ($filter == "tgl_akhir_diskon") {
 					$response = "$data[tgl_akhir_diskon]";
+				} else {
+					$response = "$data[$filter]";
 				}
 			}
 			break;
@@ -735,7 +737,7 @@
 			} else {
 				// foreach ($result as $data) {
 					$data = mysqli_fetch_array(
-						$result, 
+						$result,
 						MYSQLI_BOTH
 					);
 					$response .= "
@@ -778,7 +780,7 @@
 			} else {
 				// foreach ($result as $data) {
 					$data = mysqli_fetch_array(
-						$result, 
+						$result,
 						MYSQLI_BOTH
 					);
 					$response .= "
@@ -821,7 +823,7 @@
 			} else {
 				// foreach ($result as $data) {
 					$data = mysqli_fetch_array(
-						$result, 
+						$result,
 						MYSQLI_BOTH
 					);
 					$response .= "
@@ -867,7 +869,7 @@
 			} else {
 				// foreach ($result as $data) {
 					$data = mysqli_fetch_array(
-						$result, 
+						$result,
 						MYSQLI_BOTH
 					);
 					$response .= "

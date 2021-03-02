@@ -106,7 +106,51 @@ jQuery(document).ready(function($) {
 				id: id,
 				filter: 'tgl_akhir_diskon'
 			},
-		}).done(function(data) { $('input#tanggal_akhir_diskon').val(data); });
+		}).done(function (data) { $('input#tanggal_akhir_diskon').val(data); });
+
+		// Tipe Diskon
+		$.ajax({
+			url: '../functions/function_responds.php?content=get_diskon_barang',
+			type: 'POST',
+			dataType: 'html',
+			data: {
+				id: id,
+				filter: 'diskon_type'
+			},
+		}).done(function (data) { $('select#diskon_type').val(data); });
+
+		// Jumlah per barang kenaikan Diskon
+		$.ajax({
+			url: '../functions/function_responds.php?content=get_diskon_barang',
+			type: 'POST',
+			dataType: 'html',
+			data: {
+				id: id,
+				filter: 'diskon_count_increase'
+			},
+		}).done(function (data) { $('input#diskon_count_increase').val(data); });
+
+		// Jumlah per persentase kenaikan Diskon
+		$.ajax({
+			url: '../functions/function_responds.php?content=get_diskon_barang',
+			type: 'POST',
+			dataType: 'html',
+			data: {
+				id: id,
+				filter: 'diskon_amount_increment'
+			},
+		}).done(function (data) { $('input#diskon_amount_increment').val(data); });
+
+		// Jumlah maksimal per persentase kenaikan Diskon
+		$.ajax({
+			url: '../functions/function_responds.php?content=get_diskon_barang',
+			type: 'POST',
+			dataType: 'html',
+			data: {
+				id: id,
+				filter: 'diskon_amount_increment_max'
+			},
+		}).done(function (data) { $('input#diskon_amount_increment_max').val(data); });
 	});
 
 	$('body').on('click keypress', 'input#percent', function(event) {
