@@ -200,6 +200,8 @@ $(document).ready(function () {
 	var diskon_count_increase = 0;
 	var diskon_amount_increment = 0;
 	var diskon_amount_increment_max = 0;
+	var diskon_tgl_awal = '';
+	var diskon_tgl_akhir = '';
 	$('form input:not([type="submit"])').keydown(function (e) {
 		if (e.keyCode == 13) {
 			var inputs = $(this).parents("form").eq(0).find(":input");
@@ -224,6 +226,8 @@ $(document).ready(function () {
 		diskon_count_increase = 0;
 		diskon_amount_increment = 0;
 		diskon_amount_increment_max = 0;
+		diskon_tgl_awal = '';
+		diskon_tgl_akhir = '';
 
 		if (proses === "cart_add") {
 			modal.find(".modal-body form#item").attr("action", "?content=keranjang_proses&proses=add");
@@ -294,6 +298,8 @@ $(document).ready(function () {
 				diskon_count_increase = parseInt(result.diskon_count_increase);
 				diskon_amount_increment = parseInt(result.diskon_amount_increment);
 				diskon_amount_increment_max = parseInt(result.diskon_amount_increment_max);
+				diskon_tgl_awal = result.diskon_tgl_awal;
+				diskon_tgl_akhir = result.diskon_tgl_akhir;
 			}
 		});
 		// modal.find('.modal-title').text('New message to ' + recipient);
@@ -325,6 +331,8 @@ $(document).ready(function () {
 		diskon_count_increase = 0;
 		diskon_amount_increment = 0;
 		diskon_amount_increment_max = 0;
+		diskon_tgl_awal = '';
+		diskon_tgl_akhir = '';
 
 		$.ajax({
 			type: "GET",
@@ -340,6 +348,8 @@ $(document).ready(function () {
 				diskon_count_increase = parseInt(result.diskon_count_increase);
 				diskon_amount_increment = parseInt(result.diskon_amount_increment);
 				diskon_amount_increment_max = parseInt(result.diskon_amount_increment_max);
+				diskon_tgl_awal = result.diskon_tgl_awal;
+				diskon_tgl_akhir = result.diskon_tgl_akhir;
 			}
 		});
 
@@ -357,6 +367,9 @@ $(document).ready(function () {
 		var kuantitas = parseInt($(this).val());
 		var jumlah_harga = 0;
 		jumlah_harga = kuantitas * harga;
+		//var date
+		var dateNow = new Date().getFullYear + '-' + new Date().getMonth + '-' + new Date().getDate;
+		console.log(dateNow);
 		if (diskon_type === 'tambahan') {
 			var mod = 0;
 			var iteration = 0;
