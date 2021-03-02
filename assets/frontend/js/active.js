@@ -193,7 +193,8 @@ $(document).ready(function() {
 });
 
 // My Settings
-$(document).ready(function() {
+$(document).ready(function () {
+	var hargaDasar = 0;
 	var diskon = 0;
 	var diskon_type = 'umum';
 	var diskon_count_increase = 0;
@@ -217,6 +218,8 @@ $(document).ready(function() {
 		var modal = $(this);
 		// console.log(proses);
 
+		hargaDasar = 0;
+		diskon = 0;
 		diskon_type = 'umum';
 		diskon_count_increase = 0;
 		diskon_amount_increment = 0;
@@ -285,11 +288,12 @@ $(document).ready(function() {
 			success: function (response) {
 				//modal.find('.modal-body input#kuantitas').attr("max", parseInt(response));
 				var result = JSON.parse(response);
-				diskon = result.diskon;
+				hargaDasar = parseInt(result.harga_jual);
+				diskon = parseInt(result.diskon);
 				diskon_type = result.diskon_type;
-				diskon_count_increase = result.diskon_count_increase;
-				diskon_amount_increment = result.diskon_amount_increment;
-				diskon_amount_increment_max = result.diskon_amount_increment_max;
+				diskon_count_increase = parseInt(result.diskon_count_increase);
+				diskon_amount_increment = parseInt(result.diskon_amount_increment);
+				diskon_amount_increment_max = parseInt(result.diskon_amount_increment_max);
 			}
 		});
 		// modal.find('.modal-title').text('New message to ' + recipient);
@@ -315,6 +319,8 @@ $(document).ready(function() {
 			modal.find(".modal-body form#item").attr("action", "?content=keranjang_proses&proses=cart_update_item");
 		}
 
+		hargaDasar = 0;
+		diskon = 0;
 		diskon_type = 'umum';
 		diskon_count_increase = 0;
 		diskon_amount_increment = 0;
@@ -328,11 +334,12 @@ $(document).ready(function() {
 			success: function (response) {
 				//modal.find('.modal-body input#kuantitas').attr("max", parseInt(response));
 				var result = JSON.parse(response);
-				diskon = result.diskon;
+				hargaDasar = parseInt(result.harga_jual);
+				diskon = parseInt(result.diskon);
 				diskon_type = result.diskon_type;
-				diskon_count_increase = result.diskon_count_increase;
-				diskon_amount_increment = result.diskon_amount_increment;
-				diskon_amount_increment_max = result.diskon_amount_increment_max;
+				diskon_count_increase = parseInt(result.diskon_count_increase);
+				diskon_amount_increment = parseInt(result.diskon_amount_increment);
+				diskon_amount_increment_max = parseInt(result.diskon_amount_increment_max);
 			}
 		});
 
@@ -346,20 +353,26 @@ $(document).ready(function() {
 	});
 
 	$('body').on('change click', 'input#kuantitas', function(event) {
-		var harga = parseInt($('input#harga_jual').val());
+		var harga = hargaDasar - ((diskon * hargaDasar) / 100);
 		var kuantitas = parseInt($(this).val());
 		var jumlah_harga = 0;
-
+		jumlah_harga = kuantitas * harga;
 		if (diskon_type === 'tambahan') {
+			var mod = 0;
+			var iteration = 0;
+			var newDiscount = 0;
 			for (var i = 1; i <= kuantitas; i++) {
-				if (dis % 2 == 0) {
-					console.log('i', i);
+				mod = i % diskon_count_increase;
+				iteration = (i / diskon_count_increase);
+				if (mod == 0) {
+					newDiscount = diskon + (iteration * diskon_count_increase);
+					potonganHarga = (newDiscount * hargaDasar) / 100;
+					harga = hargaDasar - potonganHarga;
 				}
 			}
-			//harga = (kuantitas) ? 0 : 0 ;
+			jumlah_harga = kuantitas * harga;
 		}
-		jumlah_harga = kuantitas * harga;
-
+		$('input#harga_jual').val(parseInt(harga));
 		$('input#jumlah_harga').val(parseInt(jumlah_harga));
 	});
 
