@@ -727,6 +727,17 @@
 				}
 			}
 			break;
+		case 'get_diskon_barang_all':
+			$id = (isset($_GET['id']) AND !empty($_GET['id'])) ? antiInjection($_GET['id']) : NULL ;
+			$result = mysqli_query($koneksi, "SELECT * FROM `data_telur` WHERE `id_telur` = '$id'");
+			if (mysqli_num_rows($result) < 1) {
+				// $response .= "Tidak ada data..!";
+				$response .= "";
+			} else {
+				$data = mysqli_fetch_array($result, MYSQLI_BOTH);
+				$response = json_encode($data);
+			}
+			break;
 		case 'get_data_pengguna_pelanggan':
 			$id = (isset($_POST['id'])) ? antiInjection($_POST['id']) : NULL ;
 			$result = getPelangganById($id);
