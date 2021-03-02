@@ -126,8 +126,7 @@ $pagination->records_per_page(12);
 												<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal_chart_add" data-id="<?= $data[0] ?>" data-act="order_item" id="order-item" <?php if ($data['persediaan'] < 1) : ?>disabled <?php endif ?>>
 													<i class="fa fa-handshake-o"></i>
 													Order
-												</button> <!-- href="?content=pemesanan&id=<?php //echo $barang[0]; 
-																							?>" -->
+												</button> <!-- href="?content=pemesanan&id=<?php //echo $barang[0]; ?>" -->
 											</div>
 										</div>
 									</div>
